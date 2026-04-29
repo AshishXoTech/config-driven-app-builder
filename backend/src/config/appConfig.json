@@ -1,0 +1,16 @@
+{
+  "port": 4000,
+  "cors": {
+    "origin": ["http://localhost:3000"]
+  },
+  "models": {
+    "users": {
+      "table": "users",
+      "idField": "id",
+      "fields": [
+        { "name": "email", "type": "string", "required": true },
+        { "name": "name", "type": "string", "required": false }
+      ]
+    }
+  }
+}

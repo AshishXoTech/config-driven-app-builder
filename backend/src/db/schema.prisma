@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserAuth {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  password String?
+  name     String?
+  age      Int?
+  isActive Boolean  @default(true)
+  userId   Int?
+}
+
+model Task {
+  id        Int      @id @default(autoincrement())
+  title     String
+  completed Boolean  @default(false)
+  dueDate   DateTime?
+  userId    Int?
+}
+
+model DynamicData {
+  id        Int    @id @default(autoincrement())
+  modelName String
+  data      Json
+  userId    Int?
+
+  @@index([modelName])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  message   String
+  userId    Int
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}

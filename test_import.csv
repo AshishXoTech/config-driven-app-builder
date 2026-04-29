@@ -1,0 +1,5 @@
+email,name,age,isActive
+testuser1@demo.com,Alice Smith,28,true
+testuser2@demo.com,Bob Jones,35,false
+invalid-email,Charlie,22,true
+testuser3@demo.com,Diana Prince,,yes

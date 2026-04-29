@@ -1,0 +1,24 @@
+{
+  "models": {
+    "users": {
+      "table": "users",
+      "idField": "id",
+      "fields": [
+        { "name": "email", "label": { "en": "Email", "hi": "ईमेल" }, "type": "string", "required": true },
+        { "name": "name", "label": { "en": "Name", "hi": "नाम" }, "type": "string", "required": false },
+        { "name": "age", "label": { "en": "Age", "hi": "उम्र" }, "type": "number", "required": false },
+        { "name": "isActive", "label": { "en": "Active", "hi": "सक्रिय" }, "type": "boolean", "required": false }
+      ]
+    },
+
+    "tasks": {
+      "table": "Task",
+      "idField": "id",
+      "fields": [
+        { "name": "title", "label": { "en": "Title", "hi": "शीर्षक" }, "type": "string", "required": true },
+        { "name": "completed", "label": { "en": "Completed", "hi": "पूर्ण" }, "type": "boolean", "required": false },
+        { "name": "dueDate", "label": { "en": "Due Date", "hi": "नियत तारीख" }, "type": "date", "required": false }
+      ]
+    }
+  }
+}
