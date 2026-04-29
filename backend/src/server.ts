@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -20,14 +20,15 @@ async function main() {
   const config = loadAppConfig();
   const app = express();
 
+  const allowedOrigin = process.env.FRONTEND_URL || true;
   // The frontend needs credentials for cookies
-  app.use(cors({ origin: true, credentials: true }));
+  app.use(cors({ origin: allowedOrigin, credentials: true }));
   app.use(express.json());
   app.use(cookieParser());
 
   // CSRF Protection Middleware
   // Enforce X-Requested-With on all POST, PUT, DELETE, PATCH requests
-  app.use((req, res, next) => {
+  app.use((req: Request, res: Response, next: NextFunction) => {
     const isMutation = ["POST", "PUT", "DELETE", "PATCH"].includes(req.method);
     if (isMutation) {
       const requestedWith = req.headers["x-requested-with"];
