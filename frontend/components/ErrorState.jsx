@@ -6,10 +6,10 @@ export default function ErrorState({ message, onRetry }) {
       gap: 12,
       padding: "14px 16px",
       borderRadius: "var(--radius)",
-      border: "1px solid rgba(239,68,68,0.2)",
+      border: "1px solid var(--border)",
       background: "var(--danger-muted)",
     }}>
-      <div style={{ color: "#f87171", marginTop: 1, flexShrink: 0 }}>
+      <div style={{ color: "var(--accent)", marginTop: 1, flexShrink: 0 }}>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <circle cx="12" cy="12" r="10" />
           <line x1="12" y1="8" x2="12" y2="12" />
@@ -17,7 +17,7 @@ export default function ErrorState({ message, onRetry }) {
         </svg>
       </div>
       <div style={{ flex: 1 }}>
-        <p style={{ fontSize: 13, fontWeight: 500, color: "#fca5a5", margin: 0 }}>
+        <p style={{ fontSize: 13, fontWeight: 500, color: "var(--text)", margin: 0 }}>
           {message || "Something went wrong"}
         </p>
       </div>
@@ -27,9 +27,9 @@ export default function ErrorState({ message, onRetry }) {
           style={{
             padding: "5px 12px",
             borderRadius: 8,
-            border: "1px solid rgba(239,68,68,0.3)",
-            background: "rgba(239,68,68,0.15)",
-            color: "#fca5a5",
+            border: "1px solid var(--border)",
+            background: "transparent",
+            color: "var(--text-secondary)",
             fontSize: 12,
             fontWeight: 600,
             cursor: "pointer",

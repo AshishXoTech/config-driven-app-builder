@@ -2,34 +2,34 @@
 @import "tailwindcss";
 
 /* ── Design System: SchemaForge ────────────────────────────────────── */
-/* Palette: Slate/charcoal base, soft purple accents, neutral shadows  */
+/* Palette: light SaaS neutrals with purple primary actions             */
 /* Spacing: 8px grid system                                            */
 /* Typography: Inter (system fallback chain)                           */
 
 :root {
-  --bg: #0f1117;
-  --bg-raised: #161820;
-  --bg-surface: #1c1e2a;
-  --bg-hover: #22243a;
-  --text: #e8e9ed;
-  --text-secondary: #9496a1;
-  --text-muted: #5d5f6e;
-  --border: #2a2d3a;
-  --border-hover: #3a3d4e;
-  --accent: #8b7af5;
-  --accent-hover: #a194f7;
-  --accent-muted: rgba(139, 122, 245, 0.12);
-  --danger: #ef4444;
-  --danger-muted: rgba(239, 68, 68, 0.12);
-  --ok: #22c55e;
-  --ok-muted: rgba(34, 197, 94, 0.12);
-  --warn: #f59e0b;
-  --warn-muted: rgba(245, 158, 11, 0.12);
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.25);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.35);
+  --bg: #f9fafb;
+  --bg-raised: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-hover: #f9fafb;
+  --text: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+  --border-hover: #d1d5db;
+  --accent: #9333ea;
+  --accent-hover: #7e22ce;
+  --accent-muted: #faf5ff;
+  --danger: #9333ea;
+  --danger-muted: #faf5ff;
+  --ok: #9333ea;
+  --ok-muted: #faf5ff;
+  --warn: #9333ea;
+  --warn-muted: #faf5ff;
+  --shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.06);
+  --shadow-md: 0 4px 12px rgba(17, 24, 39, 0.10);
+  --shadow-lg: 0 10px 24px rgba(17, 24, 39, 0.12);
   --radius: 12px;
-  --radius-lg: 16px;
+  --radius-lg: 12px;
 }
 
 * {
@@ -54,9 +54,9 @@ a {
 /* ── Layout ─────────────────────────────────────────────────────────── */
 
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 32px 24px 64px;
+  padding: 32px 24px;
 }
 
 .header {
@@ -86,8 +86,13 @@ a {
   background: var(--bg-raised);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
+  transition: box-shadow 150ms ease;
+}
+
+.panel:hover {
+  box-shadow: var(--shadow-md);
 }
 
 .panelHeader {
@@ -125,8 +130,8 @@ a {
 .btn {
   appearance: none;
   border: 1px solid var(--border);
-  background: var(--bg-surface);
-  color: var(--text);
+  background: transparent;
+  color: var(--text-secondary);
   border-radius: var(--radius);
   padding: 8px 16px;
   font-size: 13px;
@@ -138,13 +143,12 @@ a {
 .btn:hover {
   background: var(--bg-hover);
   border-color: var(--border-hover);
-  transform: translateY(-1px);
 }
 
 .btnDanger:hover {
-  border-color: rgba(239, 68, 68, 0.4);
+  border-color: var(--border-hover);
   background: var(--danger-muted);
-  color: #fca5a5;
+  color: var(--text);
 }
 
 .content {
@@ -189,7 +193,7 @@ a {
 .input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-muted);
+  box-shadow: 0 0 0 2px var(--accent);
 }
 
 /* ── Table ──────────────────────────────────────────────────────────── */
@@ -209,11 +213,12 @@ a {
 }
 
 .table th {
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-weight: 600;
   font-size: 11px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  background: var(--bg-hover);
 }
 
 .table tbody tr:hover {
@@ -238,15 +243,15 @@ a {
 }
 
 .toastOk {
-  border-color: rgba(34, 197, 94, 0.3);
+  border-color: var(--border);
   background: var(--ok-muted);
-  color: #86efac;
+  color: var(--text-secondary);
 }
 
 .toastErr {
-  border-color: rgba(239, 68, 68, 0.3);
+  border-color: var(--border);
   background: var(--danger-muted);
-  color: #fca5a5;
+  color: var(--text-secondary);
 }
 
 @keyframes fadeIn {

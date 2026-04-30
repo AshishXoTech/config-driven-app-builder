@@ -82,7 +82,7 @@ export default function Login() {
             width: 40,
             height: 40,
             borderRadius: 10,
-            background: "linear-gradient(135deg, #8b7af5 0%, #6c5ce7 100%)",
+            background: "var(--accent)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -155,10 +155,10 @@ export default function Login() {
             margin: "16px 32px 0",
             padding: "10px 14px",
             borderRadius: "var(--radius)",
-            border: "1px solid rgba(239,68,68,0.25)",
+            border: "1px solid var(--border)",
             background: "var(--danger-muted)",
             fontSize: 13,
-            color: "#fca5a5",
+            color: "var(--text)",
           }}>
             {error}
           </div>
@@ -197,7 +197,7 @@ export default function Login() {
                 }}
                 onFocus={(e) => {
                   e.target.style.borderColor = "var(--accent)";
-                  e.target.style.boxShadow = "0 0 0 3px var(--accent-muted)";
+                  e.target.style.boxShadow = "0 0 0 2px var(--accent)";
                 }}
                 onBlur={(e) => {
                   e.target.style.borderColor = "var(--border)";
@@ -237,7 +237,7 @@ export default function Login() {
                   }}
                   onFocus={(e) => {
                     e.target.style.borderColor = "var(--accent)";
-                    e.target.style.boxShadow = "0 0 0 3px var(--accent-muted)";
+                    e.target.style.boxShadow = "0 0 0 2px var(--accent)";
                   }}
                   onBlur={(e) => {
                     e.target.style.borderColor = "var(--border)";
@@ -281,7 +281,7 @@ export default function Login() {
                   }}
                   onFocus={(e) => {
                     e.target.style.borderColor = "var(--accent)";
-                    e.target.style.boxShadow = "0 0 0 3px var(--accent-muted)";
+                    e.target.style.boxShadow = "0 0 0 2px var(--accent)";
                   }}
                   onBlur={(e) => {
                     e.target.style.borderColor = "var(--border)";

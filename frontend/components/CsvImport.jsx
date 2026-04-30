@@ -115,9 +115,9 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
   // ── Upload zone ──
   if (!preview) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-white/5 shadow-2xl">
-        <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
-          <p className="text-xs font-semibold tracking-wide text-white/70">
+      <div className="rounded-xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md">
+        <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+          <p className="text-xs font-semibold tracking-wide text-gray-600">
             Import CSV → {modelName}
           </p>
         </div>
@@ -129,19 +129,19 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
             onClick={() => inputRef.current?.click()}
             className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed px-6 py-10 transition-all ${
               dragOver
-                ? "border-violet-400/60 bg-violet-500/10"
-                : "border-white/15 bg-black/10 hover:border-white/25 hover:bg-black/15"
+                ? "border-purple-600 bg-purple-50"
+                : "border-gray-300 bg-white hover:border-gray-300 hover:bg-gray-50"
             }`}
           >
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/40">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-gray-600">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="17 8 12 3 7 8" />
               <line x1="12" y1="3" x2="12" y2="15" />
             </svg>
-            <p className="text-sm text-white/60">
-              <span className="font-semibold text-violet-300">Click to upload</span> or drag &amp; drop
+            <p className="text-sm text-gray-600">
+              <span className="font-semibold text-purple-600">Click to upload</span> or drag &amp; drop
             </p>
-            <p className="text-xs text-white/40">.csv files only</p>
+            <p className="text-xs text-gray-600">.csv files only</p>
           </div>
           <input
             ref={inputRef}
@@ -162,17 +162,17 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
   // Empty or invalid CSV handling
   if (matchedHeaders.length === 0) {
     return (
-      <div className="rounded-2xl border border-rose-500/30 bg-rose-500/5 p-8 text-center shadow-2xl">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="mx-auto mb-3 text-rose-400">
+      <div className="rounded-xl border border-gray-200 bg-white p-8 text-center shadow-sm transition hover:shadow-md">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="mx-auto mb-3 text-purple-600">
           <circle cx="12" cy="12" r="10" />
           <line x1="15" y1="9" x2="9" y2="15" />
           <line x1="9" y1="9" x2="15" y2="15" />
         </svg>
-        <p className="text-sm font-semibold text-rose-300">Invalid CSV structure</p>
-        <p className="mt-1 text-xs text-rose-300/60">No columns matched the {modelName} schema.</p>
+        <p className="text-sm font-semibold text-gray-900">Invalid CSV structure</p>
+        <p className="mt-1 text-xs text-gray-600">No columns matched the {modelName} schema.</p>
         <button
           onClick={reset}
-          className="mt-4 rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-1.5 text-xs font-semibold text-rose-200 transition-colors hover:bg-rose-500/20"
+          className="mt-4 rounded-lg border border-gray-300 px-4 py-1.5 text-xs font-semibold text-gray-700 transition-colors hover:bg-gray-100"
         >
           Try another file
         </button>
@@ -192,18 +192,18 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 shadow-2xl">
-      <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
-        <p className="text-xs font-semibold tracking-wide text-white/70">
+    <div className="rounded-xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md">
+      <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+        <p className="text-xs font-semibold tracking-wide text-gray-600">
           CSV Preview → {modelName}
-          <span className="ml-2 rounded-full border border-white/10 bg-black/20 px-2 py-0.5 text-[11px]">
+          <span className="ml-2 rounded-full border border-gray-200 bg-gray-50 px-2 py-0.5 text-[11px] text-gray-600">
             {preview.rows.length} rows
           </span>
         </p>
         <div className="flex gap-2">
           <button
             type="button"
-            className="rounded-xl border border-white/10 bg-black/10 px-3 py-1.5 text-xs font-semibold text-white/80 hover:bg-black/20"
+            className="rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-100"
             onClick={reset}
           >
             {result ? "Close" : "Cancel"}
@@ -211,7 +211,7 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
           {!result && (
             <button
               type="button"
-              className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/10 px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:border-violet-400/60 hover:bg-violet-500/15 disabled:opacity-50"
+              className="flex items-center gap-2 rounded-lg bg-purple-600 px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-purple-700 disabled:opacity-50"
               onClick={doImport}
               disabled={importing || preview.rows.length === 0}
             >
@@ -226,12 +226,12 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
         {/* Column match info */}
         <div className="mb-3 flex flex-wrap gap-1.5">
           {matchedHeaders.map((h) => (
-            <span key={h} className="rounded-full border border-emerald-400/30 bg-emerald-500/10 px-2 py-0.5 text-[11px] text-emerald-200">
+            <span key={h} className="rounded-full border border-purple-200 bg-purple-50 px-2 py-0.5 text-[11px] text-purple-600">
               ✓ {h}
             </span>
           ))}
           {unmatchedHeaders.map((h) => (
-            <span key={h} className="rounded-full border border-white/10 bg-black/10 px-2 py-0.5 text-[11px] text-white/40 line-through">
+            <span key={h} className="rounded-full border border-gray-200 bg-gray-50 px-2 py-0.5 text-[11px] text-gray-600 line-through">
               {h}
             </span>
           ))}
@@ -241,8 +241,8 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
         {result && (
           <div className={`mb-3 rounded-xl border px-3 py-2 text-sm ${
             result.failedCount === 0
-              ? "border-emerald-400/30 bg-emerald-500/10 text-emerald-100"
-              : "border-amber-400/30 bg-amber-500/10 text-amber-100"
+              ? "border-purple-200 bg-purple-50 text-gray-900"
+              : "border-gray-200 bg-gray-50 text-gray-900"
           }`}>
             {result.successCount} users imported successfully, {result.failedCount} failed
           </div>
@@ -252,13 +252,13 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="border-b border-white/10">
-                <th className="py-2 pr-3 text-left text-[11px] font-semibold uppercase tracking-wide text-white/40">#</th>
+              <tr className="border-b border-gray-200 bg-gray-50">
+                <th className="py-2 pr-3 text-left text-[11px] font-semibold uppercase tracking-wide text-gray-600">#</th>
                 {preview.headers.map((h) => (
                   <th
                     key={h}
                     className={`py-2 pr-3 text-left text-[11px] font-semibold uppercase tracking-wide ${
-                      fieldNames.has(h.toLowerCase()) ? "text-white/60" : "text-white/25 line-through"
+                      fieldNames.has(h.toLowerCase()) ? "text-gray-600" : "text-gray-600 line-through"
                     }`}
                   >
                     {h}
@@ -279,9 +279,9 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
                 return (
                   <tr 
                     key={idx} 
-                    className={`border-b ${hasError ? 'border-rose-500/30 bg-rose-500/10' : 'border-white/5'}`}
+                    className={`border-b transition hover:bg-gray-50 ${hasError ? 'border-gray-200 bg-purple-50' : 'border-gray-200'}`}
                   >
-                    <td className="py-2 pr-3 text-xs text-white/30 align-top">
+                    <td className="py-2 pr-3 text-xs text-gray-600 align-top">
                       {rowNum}
                     </td>
                     {preview.headers.map((h) => {
@@ -291,13 +291,13 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
                         <td
                           key={h}
                           className={`py-2 pr-3 text-sm align-top ${
-                            isMatch ? (hasError ? "text-rose-200" : "text-white/85") : "text-white/25"
-                          } ${isErrorField ? "font-bold text-rose-300" : ""}`}
+                            isMatch ? "text-gray-900" : "text-gray-600"
+                          } ${isErrorField ? "font-bold text-purple-600" : ""}`}
                         >
                           <div className="flex flex-col">
                             <span>{row[h] ?? ""}</span>
                             {isErrorField && (
-                              <span className="mt-0.5 text-[10px] leading-tight text-rose-400">
+                              <span className="mt-0.5 text-[10px] leading-tight text-purple-600">
                                 {rowError.message}
                               </span>
                             )}
@@ -306,7 +306,7 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
                       );
                     })}
                     {hasError && !rowError.field && (
-                      <td className="py-2 pl-3 text-[10px] text-rose-400 align-top">
+                      <td className="py-2 pl-3 text-[10px] text-purple-600 align-top">
                         {rowError.message}
                       </td>
                     )}
@@ -316,12 +316,12 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
             </tbody>
           </table>
           {preview.rows.length > 10 && !result && (
-            <p className="mt-2 text-xs text-white/40">
+            <p className="mt-2 text-xs text-gray-600">
               Showing 10 of {preview.rows.length} rows…
             </p>
           )}
           {result && errorMap.size === 0 && preview.rows.length > 10 && (
-            <p className="mt-2 text-xs text-white/40">
+            <p className="mt-2 text-xs text-gray-600">
               Showing 10 of {preview.rows.length} rows (All successful!)
             </p>
           )}

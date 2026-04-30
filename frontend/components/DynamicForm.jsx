@@ -71,7 +71,7 @@ export default function DynamicForm({ schema, modelName, onCreated, onError }) {
 
   function handleFocus(e) {
     e.target.style.borderColor = "var(--accent)";
-    e.target.style.boxShadow = "0 0 0 3px var(--accent-muted)";
+    e.target.style.boxShadow = "0 0 0 2px var(--accent)";
   }
   function handleBlur(e) {
     e.target.style.borderColor = "var(--border)";
@@ -118,10 +118,10 @@ export default function DynamicForm({ schema, modelName, onCreated, onError }) {
                 return (
                   <div key={f.name} style={{
                     padding: "10px 14px",
-                    background: "rgba(245, 158, 11, 0.1)",
-                    border: "1px dashed rgba(245, 158, 11, 0.5)",
+                    background: "var(--accent-muted)",
+                    border: "1px dashed var(--border)",
                     borderRadius: "var(--radius)",
-                    color: "#d97706",
+                    color: "var(--text-secondary)",
                     fontSize: 13,
                     display: "flex",
                     alignItems: "center",

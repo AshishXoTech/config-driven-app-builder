@@ -136,11 +136,11 @@ export default function DynamicTable({ schema, modelName, refreshKey = 0, onErro
                       fontWeight: 600,
                       textTransform: "uppercase",
                       letterSpacing: "0.04em",
-                      color: "var(--text-muted)",
+                      color: "var(--text-secondary)",
                       borderBottom: "1px solid var(--border)",
                       position: "sticky",
                       top: 0,
-                      background: "var(--bg-raised)",
+                      background: "var(--bg-hover)",
                     }}>
                       {c.label}
                     </th>
@@ -152,11 +152,11 @@ export default function DynamicTable({ schema, modelName, refreshKey = 0, onErro
                     fontWeight: 600,
                     textTransform: "uppercase",
                     letterSpacing: "0.04em",
-                    color: "var(--text-muted)",
+                    color: "var(--text-secondary)",
                     borderBottom: "1px solid var(--border)",
                     position: "sticky",
                     top: 0,
-                    background: "var(--bg-raised)",
+                    background: "var(--bg-hover)",
                   }}>
                     Actions
                   </th>
@@ -179,7 +179,7 @@ export default function DynamicTable({ schema, modelName, refreshKey = 0, onErro
                         verticalAlign: "top",
                       }}>
                         {getFieldKind(c.type) === "unknown" ? (
-                          <span style={{ color: "#d97706", fontSize: 11, fontWeight: 500, background: "rgba(245, 158, 11, 0.1)", padding: "2px 6px", borderRadius: 4 }}>
+                          <span style={{ color: "var(--text-secondary)", fontSize: 11, fontWeight: 500, background: "var(--accent-muted)", padding: "2px 6px", borderRadius: 4 }}>
                             ⚠️ Unsupported
                           </span>
                         ) : safeString(r?.[c.name])}
@@ -192,21 +192,21 @@ export default function DynamicTable({ schema, modelName, refreshKey = 0, onErro
                         style={{
                           padding: "5px 12px",
                           borderRadius: 8,
-                          border: "1px solid rgba(239,68,68,0.25)",
+                          border: "1px solid var(--border)",
                           background: "var(--danger-muted)",
-                          color: "#fca5a5",
+                          color: "var(--text-secondary)",
                           fontSize: 12,
                           fontWeight: 600,
                           cursor: "pointer",
                           transition: "all 150ms ease",
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.background = "rgba(239,68,68,0.2)";
-                          e.currentTarget.style.borderColor = "rgba(239,68,68,0.4)";
+                          e.currentTarget.style.background = "var(--bg-hover)";
+                          e.currentTarget.style.borderColor = "var(--border-hover)";
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.background = "var(--danger-muted)";
-                          e.currentTarget.style.borderColor = "rgba(239,68,68,0.25)";
+                          e.currentTarget.style.borderColor = "var(--border)";
                         }}
                       >
                         Delete

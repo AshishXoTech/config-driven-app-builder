@@ -10,13 +10,13 @@ export default function SafeModeBanner() {
 
   return (
     <div style={{
-      background: "rgba(245, 158, 11, 0.15)",
-      color: "#d97706",
+      background: "var(--accent-muted)",
+      color: "var(--text-secondary)",
       padding: "12px 20px",
       textAlign: "center",
       fontWeight: 600,
       fontSize: 14,
-      borderBottom: "1px solid rgba(245, 158, 11, 0.3)",
+      borderBottom: "1px solid var(--border)",
       zIndex: 9999,
       position: "relative",
       display: "flex",
