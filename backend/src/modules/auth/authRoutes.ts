@@ -71,12 +71,16 @@ authRouter.post("/login", authLimiter, async (req, res, next) => {
   try {
     const { email, password } = authSchema.parse(req.body);
     const result = await login(email, password);
-    
+
+    console.log("LOGIN ROUTE HIT ✅");
+
     res.cookie("access_token", result.accessToken, {
       httpOnly: true,
       secure: true,
       sameSite: "none",
     });
+
+    console.log("COOKIE SETTING DONE ✅");
 
     return res.json({
       success: true,
