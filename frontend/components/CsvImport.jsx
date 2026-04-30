@@ -115,7 +115,7 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
   // ── Upload zone ──
   if (!preview) {
     return (
-      <div className="rounded-xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md">
+      <div className="rounded-xl border border-t-4 border-gray-200 border-t-amber-500 bg-white shadow-sm transition hover:shadow-md">
         <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
           <p className="text-xs font-semibold tracking-wide text-gray-600">
             Import CSV → {modelName}
@@ -129,11 +129,11 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
             onClick={() => inputRef.current?.click()}
             className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed px-6 py-10 transition-all ${
               dragOver
-                ? "border-purple-600 bg-purple-100"
+                ? "border-teal-700 bg-teal-50"
                 : "border-gray-300 bg-white hover:border-gray-300 hover:bg-gray-50"
             }`}
           >
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="rounded-lg bg-purple-100 p-2 text-purple-600">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="rounded-lg bg-teal-100 p-2 text-teal-700">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="17 8 12 3 7 8" />
               <line x1="12" y1="3" x2="12" y2="15" />
@@ -162,8 +162,8 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
   // Empty or invalid CSV handling
   if (matchedHeaders.length === 0) {
     return (
-      <div className="rounded-xl border border-gray-200 bg-white p-8 text-center shadow-sm transition hover:shadow-md">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="mx-auto mb-3 rounded-lg bg-purple-100 p-2 text-purple-600">
+      <div className="rounded-xl border border-t-4 border-gray-200 border-t-red-600 bg-white p-8 text-center shadow-sm transition hover:shadow-md">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="mx-auto mb-3 rounded-lg bg-red-100 p-2 text-red-600">
           <circle cx="12" cy="12" r="10" />
           <line x1="15" y1="9" x2="9" y2="15" />
           <line x1="9" y1="9" x2="15" y2="15" />
@@ -192,7 +192,7 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
   }
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md">
+    <div className="rounded-xl border border-t-4 border-gray-200 border-t-blue-600 bg-white shadow-sm transition hover:shadow-md">
       <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
         <p className="text-xs font-semibold tracking-wide text-gray-600">
           CSV Preview → {modelName}
@@ -226,7 +226,7 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
         {/* Column match info */}
         <div className="mb-3 flex flex-wrap gap-1.5">
           {matchedHeaders.map((h) => (
-            <span key={h} className="rounded-full border border-purple-200 bg-purple-100 px-2 py-0.5 text-[11px] text-purple-600">
+            <span key={h} className="rounded-full border border-teal-200 bg-teal-50 px-2 py-0.5 text-[11px] text-teal-700">
               ✓ {h}
             </span>
           ))}
@@ -241,7 +241,7 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
         {result && (
           <div className={`mb-3 rounded-xl border px-3 py-2 text-sm ${
             result.failedCount === 0
-              ? "border-purple-200 bg-purple-100 text-gray-900"
+              ? "border-teal-200 bg-teal-50 text-teal-700"
               : "border-gray-200 bg-gray-50 text-gray-900"
           }`}>
             {result.successCount} users imported successfully, {result.failedCount} failed
@@ -279,7 +279,7 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
                 return (
                   <tr 
                     key={idx} 
-                    className={`border-b transition hover:bg-gray-50 ${hasError ? 'border-gray-200 bg-purple-100' : 'border-gray-200'}`}
+                    className={`border-b transition hover:bg-gray-50 ${hasError ? 'border-gray-200 bg-red-50' : 'border-gray-200'}`}
                   >
                     <td className="py-2 pr-3 text-xs text-gray-600 align-top">
                       {rowNum}
@@ -292,12 +292,12 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
                           key={h}
                           className={`py-2 pr-3 text-sm align-top ${
                             isMatch ? "text-gray-900" : "text-gray-600"
-                          } ${isErrorField ? "font-bold text-purple-600" : ""}`}
+                          } ${isErrorField ? "font-bold text-red-600" : ""}`}
                         >
                           <div className="flex flex-col">
                             <span>{row[h] ?? ""}</span>
                             {isErrorField && (
-                              <span className="mt-0.5 text-[10px] leading-tight text-purple-600">
+                              <span className="mt-0.5 text-[10px] leading-tight text-red-600">
                                 {rowError.message}
                               </span>
                             )}
@@ -306,7 +306,7 @@ export default function CsvImport({ schema, modelName, onImported, onError }) {
                       );
                     })}
                     {hasError && !rowError.field && (
-                      <td className="py-2 pl-3 text-[10px] text-purple-600 align-top">
+                      <td className="py-2 pl-3 text-[10px] text-red-600 align-top">
                         {rowError.message}
                       </td>
                     )}

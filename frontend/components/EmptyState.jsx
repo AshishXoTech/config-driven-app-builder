@@ -15,11 +15,11 @@ export default function EmptyState({ title = "No data available", description, i
         width: 44,
         height: 44,
         borderRadius: 12,
-        background: "var(--accent-muted)",
+        background: "var(--blue-muted)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: "var(--accent)",
+        color: "var(--blue)",
         marginBottom: 16,
       }}>
         {icon || (

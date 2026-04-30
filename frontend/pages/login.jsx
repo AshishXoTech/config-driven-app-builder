@@ -82,7 +82,7 @@ export default function Login() {
             width: 40,
             height: 40,
             borderRadius: 10,
-            background: "var(--accent)",
+            background: "linear-gradient(135deg, var(--accent), var(--blue))",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -159,7 +159,7 @@ export default function Login() {
             border: "1px solid var(--border)",
             background: "var(--danger-muted)",
             fontSize: 13,
-            color: "var(--text)",
+            color: "var(--danger)",
           }}>
             {error}
           </div>

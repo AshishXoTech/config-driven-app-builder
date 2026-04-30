@@ -56,6 +56,7 @@ export default function DynamicTable({ schema, modelName, refreshKey = 0, onErro
     <div style={{
       borderRadius: "var(--radius-lg)",
       border: "1px solid var(--border)",
+      borderTop: "3px solid var(--teal)",
       background: "var(--bg-raised)",
       boxShadow: "var(--shadow-sm)",
       overflow: "hidden",
@@ -186,7 +187,7 @@ export default function DynamicTable({ schema, modelName, refreshKey = 0, onErro
                         verticalAlign: "top",
                       }}>
                         {getFieldKind(c.type) === "unknown" ? (
-                          <span style={{ color: "var(--text-secondary)", fontSize: 11, fontWeight: 500, background: "var(--accent-muted)", padding: "2px 6px", borderRadius: 4 }}>
+                          <span style={{ color: "var(--amber)", fontSize: 11, fontWeight: 500, background: "var(--amber-muted)", padding: "2px 6px", borderRadius: 4 }}>
                             ⚠️ Unsupported
                           </span>
                         ) : safeString(r?.[c.name])}
@@ -201,7 +202,7 @@ export default function DynamicTable({ schema, modelName, refreshKey = 0, onErro
                           borderRadius: 8,
                           border: "1px solid var(--border-hover)",
                           background: "var(--danger-muted)",
-                          color: "var(--text-secondary)",
+                          color: "var(--danger)",
                           fontSize: 12,
                           fontWeight: 600,
                           cursor: "pointer",

@@ -10,8 +10,8 @@ export default function SafeModeBanner() {
 
   return (
     <div style={{
-      background: "var(--accent-muted)",
-      color: "var(--text-secondary)",
+      background: "var(--warn-muted)",
+      color: "var(--warn)",
       padding: "12px 20px",
       textAlign: "center",
       fontWeight: 600,

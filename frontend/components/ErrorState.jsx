@@ -10,12 +10,12 @@ export default function ErrorState({ message, onRetry }) {
       background: "var(--danger-muted)",
     }}>
       <div style={{
-        color: "var(--accent)",
+        color: "var(--danger)",
         marginTop: 1,
         flexShrink: 0,
         padding: 8,
         borderRadius: 8,
-        background: "var(--accent-muted)",
+        background: "var(--danger-muted)",
       }}>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <circle cx="12" cy="12" r="10" />

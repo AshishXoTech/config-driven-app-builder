@@ -105,7 +105,7 @@ export default function Home() {
       <section style={{
         textAlign: "center",
         padding: "80px 24px 64px",
-        background: "linear-gradient(to bottom, var(--bg-raised), var(--bg-hover))",
+        background: "linear-gradient(to bottom, #ffffff, #eef2ff)",
       }}>
         <div style={{
           maxWidth: 680,
@@ -212,7 +212,7 @@ export default function Home() {
           gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
           gap: 16,
         }}>
-          {features.map((f) => (
+          {features.map((f, idx) => (
             <div key={f.title} style={{
               padding: "24px",
               borderRadius: "var(--radius-lg)",
@@ -220,13 +220,14 @@ export default function Home() {
               background: "var(--bg-raised)",
               boxShadow: "var(--shadow-sm)",
               transition: "box-shadow 150ms ease, border-color 150ms ease",
+              borderTop: `3px solid ${["var(--accent)", "var(--blue)", "var(--teal)", "var(--amber)", "var(--blue)", "var(--accent)"][idx % 6]}`,
             }}>
               <div style={{
                 width: 36,
                 height: 36,
                 borderRadius: 10,
-                background: "var(--accent-muted)",
-                color: "var(--accent)",
+                background: ["var(--accent-muted)", "var(--blue-muted)", "var(--teal-muted)", "var(--amber-muted)", "var(--blue-muted)", "var(--accent-muted)"][idx % 6],
+                color: ["var(--accent)", "var(--blue)", "var(--teal)", "var(--amber)", "var(--blue)", "var(--accent)"][idx % 6],
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -274,7 +275,7 @@ export default function Home() {
         </h2>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {steps.map((s) => (
+          {steps.map((s, idx) => (
             <div key={s.num} style={{
               display: "flex",
               alignItems: "flex-start",
@@ -284,13 +285,14 @@ export default function Home() {
               border: "1px solid var(--border)",
               background: "var(--bg-raised)",
               boxShadow: "var(--shadow-sm)",
+              borderLeft: `4px solid ${["var(--accent)", "var(--blue)", "var(--teal)"][idx % 3]}`,
             }}>
               <div style={{
                 width: 32,
                 height: 32,
                 borderRadius: 8,
-                background: "var(--accent-muted)",
-                color: "var(--accent)",
+                background: ["var(--accent-muted)", "var(--blue-muted)", "var(--teal-muted)"][idx % 3],
+                color: ["var(--accent)", "var(--blue)", "var(--teal)"][idx % 3],
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -414,6 +416,7 @@ export default function Home() {
                   borderRadius: "var(--radius)",
                   border: "1px solid var(--border)",
                   background: "var(--bg-surface)",
+                  borderTop: "3px solid var(--teal)",
                   boxShadow: "var(--shadow-sm)",
                   textDecoration: "none",
                   transition: "all 150ms ease",

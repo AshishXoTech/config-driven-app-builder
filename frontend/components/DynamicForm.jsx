@@ -82,6 +82,7 @@ export default function DynamicForm({ schema, modelName, onCreated, onError }) {
     <div style={{
       borderRadius: "var(--radius-lg)",
       border: "1px solid var(--border)",
+      borderTop: "3px solid var(--blue)",
       background: "var(--bg-raised)",
       boxShadow: "var(--shadow-sm)",
       overflow: "hidden",
@@ -119,10 +120,10 @@ export default function DynamicForm({ schema, modelName, onCreated, onError }) {
                 return (
                   <div key={f.name} style={{
                     padding: "10px 14px",
-                    background: "var(--accent-muted)",
+                    background: "var(--amber-muted)",
                     border: "1px dashed var(--border)",
                     borderRadius: "var(--radius)",
-                    color: "var(--text-secondary)",
+                    color: "var(--amber)",
                     fontSize: 13,
                     display: "flex",
                     alignItems: "center",
@@ -152,7 +153,7 @@ export default function DynamicForm({ schema, modelName, onCreated, onError }) {
                       checked={!!values[f.name]}
                       onChange={(e) => setValues((v) => ({ ...v, [f.name]: e.target.checked }))}
                       disabled={submitting}
-                      style={{ accentColor: "var(--accent)" }}
+                      style={{ accentColor: "var(--teal)" }}
                     />
                     <span style={{ fontSize: 13, color: "var(--text)" }}>
                       {label}
