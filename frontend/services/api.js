@@ -143,6 +143,20 @@ export async function signup(email, password) {
   return res;
 }
 
+export function sendOtp(email) {
+  return request("/auth/otp/send", {
+    method: "POST",
+    body: JSON.stringify({ email }),
+  });
+}
+
+export function verifyOtp(email, code) {
+  return request("/auth/otp/verify", {
+    method: "POST",
+    body: JSON.stringify({ email, code }),
+  });
+}
+
 export function logout() {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");
