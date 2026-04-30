@@ -1,5 +1,6 @@
 import path from "node:path";
 import fs from "node:fs";
+import { triggerSafeMode } from "./safeMode";
 
 /**
  * Supported field types
@@ -99,7 +100,9 @@ function sanitizeFields(fields: any, modelName: string): ModelField[] {
  */
 function sanitizeModels(models: any): Record<string, ModelConfig> {
   if (!models || typeof models !== "object") {
-    console.warn("⚠️ Missing or invalid 'models'. Using empty.");
+    const errorMsg = "Missing or invalid 'models' in config.";
+    console.warn(`⚠️ ${errorMsg} Using empty.`);
+    triggerSafeMode(errorMsg);
     return {};
   }
 
@@ -107,7 +110,9 @@ function sanitizeModels(models: any): Record<string, ModelConfig> {
 
   Object.entries(models).forEach(([modelName, model]: any) => {
     if (typeof model !== "object") {
-      console.warn(`⚠️ Skipping invalid model: ${modelName}`);
+      const errorMsg = `Skipping invalid model structure for: ${modelName}`;
+      console.warn(`⚠️ ${errorMsg}`);
+      triggerSafeMode(errorMsg);
       return;
     }
 
@@ -157,7 +162,9 @@ export function loadAppConfig(): AppConfig {
 
   // Check file exists
   if (!fs.existsSync(configPath)) {
-    console.error("❌ Config file not found. Using default config.");
+    const errorMsg = "Config file not found.";
+    console.error(`❌ ${errorMsg} Using default config.`);
+    triggerSafeMode(errorMsg);
   } else {
     rawConfig = safeReadJSON(configPath);
   }

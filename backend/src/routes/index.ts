@@ -1,10 +1,11 @@
-import { Router } from "express";
 import type { AppConfig } from "../core/configLoader";
+import { getSystemState } from "../core/safeMode";
 import { dynamicRoutes } from "./dynamicRoutes";
 import { CrudService } from "../services/crudService";
 import { authMiddleware } from "../middleware/authMiddleware";
 import { notificationService } from "../services/notificationService";
 import { getJob } from "../services/jobQueue";
+import { Router, Request, Response, NextFunction } from "express";
 
 /**
  * Main router builder
@@ -30,6 +31,7 @@ export function buildRoutes(
       return res.json({
         models: config.models,
         port: config.port,
+        systemState: getSystemState(),
       });
     } catch {
       return res.status(500).json({

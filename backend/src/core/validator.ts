@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type { ModelConfig, ModelField } from "./configLoader";
+import { triggerSafeMode } from "./safeMode";
 
 // ─── Config validation ──────────────────────────────────────────────
 
@@ -27,7 +28,9 @@ export function validateModelConfig(model: ModelConfig): ModelConfig | null {
   const result = modelSchema.safeParse(model);
 
   if (!result.success) {
+    const errorMsg = `Invalid model config: ${JSON.stringify(result.error.issues[0])}`;
     console.error("❌ Invalid model config — stripping model to prevent crash:", result.error.format());
+    triggerSafeMode(errorMsg);
     return null; // Return null instead of throwing to prevent server crash
   }
 

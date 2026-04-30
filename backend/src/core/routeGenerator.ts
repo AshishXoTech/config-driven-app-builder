@@ -1,5 +1,6 @@
 import type { Router } from "express";
 import { Router as createRouter } from "express";
+import { triggerSafeMode } from "./safeMode";
 import type { AppConfig, ModelConfig } from "./configLoader";
 import { validateModelConfig, buildCreateSchema, buildUpdateSchema, parseOrThrow } from "./validator";
 import { CrudService } from "../services/crudService";
@@ -209,11 +210,20 @@ export function generateDynamicRoutes(config: AppConfig, crud: CrudService): Rou
     const route = modelKey;
 
     if (!prismaModel) {
-      console.warn(`⚠️ No Prisma model mapping found for '${modelKey}'. Skipping.`);
+      const errorMsg = `No Prisma model mapping found for '${modelKey}'.`;
+      console.warn(`⚠️ ${errorMsg} Skipping.`);
+      triggerSafeMode(errorMsg);
       continue;
     }
 
-    router.use(`/${route}`, createModelRouter(prismaModel, model, crud));
+    try {
+      router.use(`/${route}`, createModelRouter(prismaModel, model, crud));
+    } catch (err: any) {
+      const errorMsg = `Failed to generate route for ${modelKey}: ${err.message}`;
+      console.error(`❌ ${errorMsg}`);
+      triggerSafeMode(errorMsg);
+      continue;
+    }
   }
 
   return router;
