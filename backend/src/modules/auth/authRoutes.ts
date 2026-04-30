@@ -34,10 +34,10 @@ const authSchema = z.object({
 // ─────────────────────────────────────────────
 const cookieOptions = {
   httpOnly: true,
-  secure: true,              // REQUIRED for HTTPS (Vercel/Render)
-  sameSite: "none" as const, // REQUIRED for cross-domain
+  secure: true,
+  sameSite: "none" as const,
   path: "/",
-  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  domain: ".onrender.com",   // ✅ ADD THIS LINE
 };
 
 // ─────────────────────────────────────────────

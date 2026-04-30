@@ -8,8 +8,6 @@ import { prisma } from "./db/prisma";
 import { CrudService } from "./services/crudService";
 import { buildRoutes } from "./routes";
 import { errorHandler } from "./utils/errorHandler";
-
-// ✅ IMPORT AUTH ROUTES EXPLICITLY
 import { authRouter } from "./modules/auth/authRoutes";
 
 async function main() {
@@ -23,36 +21,49 @@ async function main() {
   const config = loadAppConfig();
   const app = express();
 
-  // ─────────────────────────────────────────────
-  // ✅ REQUIRED FOR RENDER (COOKIES)
-  // ─────────────────────────────────────────────
+  app.use(cors({
+    origin: "https://config-driven-app-builder.vercel.app",
+    credentials: true,
+  }));
+
+  // ✅ REQUIRED FOR RENDER COOKIES
   app.set("trust proxy", 1);
 
   // ─────────────────────────────────────────────
-  // ✅ FIXED CORS (VERY IMPORTANT)
+  // ✅ CORRECT CORS (DYNAMIC — THIS IS THE REAL FIX)
   // ─────────────────────────────────────────────
   app.use(
     cors({
-      origin: [
-        "https://config-driven-app-builder.vercel.app",
-        "https://*.vercel.app",
-      ],
+      origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+
+        if (
+          origin.includes("vercel.app") ||
+          origin.includes("localhost")
+        ) {
+          return callback(null, true);
+        }
+
+        return callback(new Error("Not allowed by CORS"));
+      },
       credentials: true,
-      methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+      methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
       allowedHeaders: ["Content-Type", "X-Requested-With"],
     })
   );
+
+  // ✅ VERY IMPORTANT (preflight)
+  app.options("*", cors());
 
   app.use(express.json());
   app.use(cookieParser());
 
   // ─────────────────────────────────────────────
-  // ✅ CSRF FIX (DON’T BLOCK AUTH)
+  // ✅ CSRF FIX
   // ─────────────────────────────────────────────
   app.use((req: Request, res: Response, next: NextFunction) => {
     const isMutation = ["POST", "PUT", "DELETE", "PATCH"].includes(req.method);
 
-    // ❗ Allow ALL auth routes
     if (req.path.startsWith("/auth")) {
       return next();
     }
@@ -71,25 +82,15 @@ async function main() {
   });
 
   // ─────────────────────────────────────────────
-  // ✅ HEALTH CHECK
-  // ─────────────────────────────────────────────
   app.get("/health", (_req, res) => res.status(200).send("OK"));
 
-  // ─────────────────────────────────────────────
-  // 🚨 MOST IMPORTANT FIX
-  // ─────────────────────────────────────────────
-  // 👉 AUTH ROUTES MUST BE EXPLICIT
+  // ✅ AUTH ROUTES (correct)
   app.use("/auth", authRouter);
 
-  // ─────────────────────────────────────────────
-  // OTHER ROUTES
-  // ─────────────────────────────────────────────
+  // ✅ OTHER ROUTES
   const crud = new CrudService(prisma);
   app.use(buildRoutes(config, crud));
 
-  // ─────────────────────────────────────────────
-  // ERROR HANDLER
-  // ─────────────────────────────────────────────
   app.use(errorHandler);
 
   const PORT = process.env.PORT || 4000;
