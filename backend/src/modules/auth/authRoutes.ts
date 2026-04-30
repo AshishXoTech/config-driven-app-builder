@@ -26,6 +26,7 @@ const accessCookieOptions = {
   httpOnly: true,
   secure: true,
   sameSite: "none" as const,
+  path: "/",
   maxAge: 15 * 60 * 1000, // 15 minutes
 };
 
