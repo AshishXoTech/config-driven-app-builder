@@ -118,6 +118,7 @@ export default function Login() {
           borderRadius: 10,
           background: "var(--bg-surface)",
           border: "1px solid var(--border)",
+          boxShadow: "var(--shadow-sm)",
           padding: 3,
           gap: 2,
         }}>
@@ -188,7 +189,7 @@ export default function Login() {
                   width: "100%",
                   padding: "10px 14px",
                   borderRadius: "var(--radius)",
-                  border: "1px solid var(--border)",
+                  border: "1px solid var(--border-hover)",
                   background: "var(--bg-surface)",
                   color: "var(--text)",
                   fontSize: 13,
@@ -199,8 +200,8 @@ export default function Login() {
                   e.target.style.borderColor = "var(--accent)";
                   e.target.style.boxShadow = "0 0 0 2px var(--accent)";
                 }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = "var(--border)";
+                  onBlur={(e) => {
+                  e.target.style.borderColor = "var(--border-hover)";
                   e.target.style.boxShadow = "none";
                 }}
               />
@@ -228,7 +229,7 @@ export default function Login() {
                     width: "100%",
                     padding: "10px 14px",
                     borderRadius: "var(--radius)",
-                    border: "1px solid var(--border)",
+                    border: "1px solid var(--border-hover)",
                     background: "var(--bg-surface)",
                     color: "var(--text)",
                     fontSize: 13,
@@ -240,7 +241,7 @@ export default function Login() {
                     e.target.style.boxShadow = "0 0 0 2px var(--accent)";
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = "var(--border)";
+                    e.target.style.borderColor = "var(--border-hover)";
                     e.target.style.boxShadow = "none";
                   }}
                 />
@@ -269,7 +270,7 @@ export default function Login() {
                     width: "100%",
                     padding: "10px 14px",
                     borderRadius: "var(--radius)",
-                    border: "1px solid var(--border)",
+                    border: "1px solid var(--border-hover)",
                     background: "var(--bg-surface)",
                     color: "var(--text)",
                     fontSize: 16,
@@ -284,7 +285,7 @@ export default function Login() {
                     e.target.style.boxShadow = "0 0 0 2px var(--accent)";
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = "var(--border)";
+                    e.target.style.borderColor = "var(--border-hover)";
                     e.target.style.boxShadow = "none";
                   }}
                 />
@@ -311,6 +312,7 @@ export default function Login() {
               cursor: loading ? "not-allowed" : "pointer",
               opacity: loading ? 0.6 : 1,
               transition: "all 150ms ease",
+              boxShadow: "var(--shadow-sm)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",

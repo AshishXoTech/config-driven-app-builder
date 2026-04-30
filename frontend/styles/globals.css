@@ -18,16 +18,16 @@
   --border-hover: #d1d5db;
   --accent: #9333ea;
   --accent-hover: #7e22ce;
-  --accent-muted: #faf5ff;
+  --accent-muted: #f3e8ff;
   --danger: #9333ea;
   --danger-muted: #faf5ff;
   --ok: #9333ea;
   --ok-muted: #faf5ff;
   --warn: #9333ea;
   --warn-muted: #faf5ff;
-  --shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.06);
-  --shadow-md: 0 4px 12px rgba(17, 24, 39, 0.10);
-  --shadow-lg: 0 10px 24px rgba(17, 24, 39, 0.12);
+  --shadow-sm: 0 1px 3px rgba(17, 24, 39, 0.10), 0 1px 2px rgba(17, 24, 39, 0.06);
+  --shadow-md: 0 8px 18px rgba(17, 24, 39, 0.12), 0 3px 8px rgba(17, 24, 39, 0.08);
+  --shadow-lg: 0 20px 40px rgba(17, 24, 39, 0.14), 0 8px 18px rgba(17, 24, 39, 0.08);
   --radius: 12px;
   --radius-lg: 12px;
 }
@@ -56,7 +56,13 @@ a {
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 32px 24px;
+  padding: 24px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
 }
 
 .header {
@@ -88,7 +94,7 @@ a {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   overflow: hidden;
-  transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease, border-color 150ms ease;
 }
 
 .panel:hover {
@@ -129,7 +135,7 @@ a {
 
 .btn {
   appearance: none;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-hover);
   background: transparent;
   color: var(--text-secondary);
   border-radius: var(--radius);
@@ -138,11 +144,13 @@ a {
   font-weight: 600;
   cursor: pointer;
   transition: all 150ms ease;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn:hover {
   background: var(--bg-hover);
   border-color: var(--border-hover);
+  box-shadow: var(--shadow-md);
 }
 
 .btnDanger:hover {
@@ -181,7 +189,7 @@ a {
 
 .input {
   width: 100%;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-hover);
   background: var(--bg-surface);
   color: var(--text);
   border-radius: var(--radius);
@@ -238,6 +246,7 @@ a {
   border: 1px solid var(--border);
   background: var(--bg-surface);
   color: var(--text-secondary);
+  box-shadow: var(--shadow-lg);
   font-size: 13px;
   animation: fadeIn 200ms ease;
 }

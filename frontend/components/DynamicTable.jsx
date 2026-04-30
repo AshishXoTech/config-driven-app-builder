@@ -59,6 +59,7 @@ export default function DynamicTable({ schema, modelName, refreshKey = 0, onErro
       background: "var(--bg-raised)",
       boxShadow: "var(--shadow-sm)",
       overflow: "hidden",
+      transition: "box-shadow 150ms ease, border-color 150ms ease",
     }}>
       <div style={{
         padding: "14px 20px",
@@ -73,7 +74,7 @@ export default function DynamicTable({ schema, modelName, refreshKey = 0, onErro
             marginLeft: 8,
             padding: "2px 8px",
             borderRadius: 999,
-            background: "var(--bg-surface)",
+            background: "var(--bg-hover)",
             border: "1px solid var(--border)",
             fontSize: 11,
             fontWeight: 500,
@@ -92,7 +93,7 @@ export default function DynamicTable({ schema, modelName, refreshKey = 0, onErro
             gap: 6,
             padding: "6px 14px",
             borderRadius: "var(--radius)",
-            border: "1px solid var(--border)",
+            border: "1px solid var(--border-hover)",
             background: "transparent",
             color: "var(--text-secondary)",
             fontSize: 12,
@@ -100,6 +101,7 @@ export default function DynamicTable({ schema, modelName, refreshKey = 0, onErro
             cursor: "pointer",
             opacity: loading ? 0.5 : 1,
             transition: "all 150ms ease",
+            boxShadow: "var(--shadow-sm)",
           }}
         >
           {loading ? <Spinner size="sm" /> : null}
@@ -124,7 +126,12 @@ export default function DynamicTable({ schema, modelName, refreshKey = 0, onErro
             description="Create a new record using the form to get started."
           />
         ) : (
-          <div style={{ overflowX: "auto" }}>
+          <div style={{
+            overflowX: "auto",
+            border: "1px solid var(--border)",
+            borderRadius: "var(--radius)",
+            boxShadow: "var(--shadow-sm)",
+          }}>
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead>
                 <tr>
@@ -192,13 +199,14 @@ export default function DynamicTable({ schema, modelName, refreshKey = 0, onErro
                         style={{
                           padding: "5px 12px",
                           borderRadius: 8,
-                          border: "1px solid var(--border)",
+                          border: "1px solid var(--border-hover)",
                           background: "var(--danger-muted)",
                           color: "var(--text-secondary)",
                           fontSize: 12,
                           fontWeight: 600,
                           cursor: "pointer",
                           transition: "all 150ms ease",
+                          boxShadow: "var(--shadow-sm)",
                         }}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.background = "var(--bg-hover)";

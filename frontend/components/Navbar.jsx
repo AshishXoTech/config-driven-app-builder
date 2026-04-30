@@ -35,6 +35,7 @@ export default function Navbar() {
       height: "56px",
       background: "var(--bg-raised)",
       borderBottom: "1px solid var(--border)",
+      boxShadow: "var(--shadow-sm)",
       backdropFilter: "blur(12px)",
     }}>
       <Link href="/" style={{
@@ -60,7 +61,7 @@ export default function Navbar() {
           onClick={handleLogout}
           style={{
             background: "transparent",
-            border: "1px solid var(--border)",
+            border: "1px solid var(--border-hover)",
             borderRadius: "var(--radius)",
             padding: "6px 14px",
             fontSize: 12,
@@ -68,6 +69,7 @@ export default function Navbar() {
             color: "var(--text-secondary)",
             cursor: "pointer",
             transition: "all 150ms ease",
+            boxShadow: "var(--shadow-sm)",
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = "var(--border-hover)";

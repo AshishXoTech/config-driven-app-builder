@@ -105,9 +105,12 @@ export default function Home() {
       <section style={{
         textAlign: "center",
         padding: "80px 24px 64px",
-        maxWidth: 680,
-        margin: "0 auto",
+        background: "linear-gradient(to bottom, var(--bg-raised), var(--bg-hover))",
       }}>
+        <div style={{
+          maxWidth: 680,
+          margin: "0 auto",
+        }}>
         <div style={{
           display: "inline-flex",
           alignItems: "center",
@@ -157,6 +160,7 @@ export default function Home() {
             borderRadius: "var(--radius)",
             background: "var(--accent)",
             color: "#fff",
+            boxShadow: "var(--shadow-sm)",
             fontSize: 13,
             fontWeight: 600,
             textDecoration: "none",
@@ -173,6 +177,7 @@ export default function Home() {
             border: "1px solid var(--border)",
             background: "var(--bg-surface)",
             color: "var(--text-secondary)",
+            boxShadow: "var(--shadow-sm)",
             fontSize: 13,
             fontWeight: 600,
             textDecoration: "none",
@@ -180,6 +185,7 @@ export default function Home() {
           }}>
             View Source
           </a>
+        </div>
         </div>
       </section>
 
@@ -212,7 +218,8 @@ export default function Home() {
               borderRadius: "var(--radius-lg)",
               border: "1px solid var(--border)",
               background: "var(--bg-raised)",
-              transition: "border-color 150ms ease",
+              boxShadow: "var(--shadow-sm)",
+              transition: "box-shadow 150ms ease, border-color 150ms ease",
             }}>
               <div style={{
                 width: 36,
@@ -276,6 +283,7 @@ export default function Home() {
               borderRadius: "var(--radius-lg)",
               border: "1px solid var(--border)",
               background: "var(--bg-raised)",
+              boxShadow: "var(--shadow-sm)",
             }}>
               <div style={{
                 width: 32,
@@ -347,9 +355,10 @@ export default function Home() {
       }}>
         <div style={{
           padding: "32px",
-          borderRadius: "var(--radius-lg)",
+          borderRadius: 16,
           border: "1px solid var(--border)",
           background: "var(--bg-raised)",
+          boxShadow: "var(--shadow-lg)",
         }}>
           <div style={{
             display: "flex",
@@ -405,6 +414,7 @@ export default function Home() {
                   borderRadius: "var(--radius)",
                   border: "1px solid var(--border)",
                   background: "var(--bg-surface)",
+                  boxShadow: "var(--shadow-sm)",
                   textDecoration: "none",
                   transition: "all 150ms ease",
                 }}
@@ -416,7 +426,7 @@ export default function Home() {
                   onMouseLeave={(e) => {
                     e.currentTarget.style.borderColor = "var(--border)";
                     e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "none";
+                    e.currentTarget.style.boxShadow = "var(--shadow-sm)";
                   }}>
                   <div style={{
                     width: 32,

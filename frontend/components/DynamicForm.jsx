@@ -61,7 +61,7 @@ export default function DynamicForm({ schema, modelName, onCreated, onError }) {
     width: "100%",
     padding: "10px 14px",
     borderRadius: "var(--radius)",
-    border: "1px solid var(--border)",
+    border: "1px solid var(--border-hover)",
     background: "var(--bg-surface)",
     color: "var(--text)",
     fontSize: 13,
@@ -74,7 +74,7 @@ export default function DynamicForm({ schema, modelName, onCreated, onError }) {
     e.target.style.boxShadow = "0 0 0 2px var(--accent)";
   }
   function handleBlur(e) {
-    e.target.style.borderColor = "var(--border)";
+    e.target.style.borderColor = "var(--border-hover)";
     e.target.style.boxShadow = "none";
   }
 
@@ -85,6 +85,7 @@ export default function DynamicForm({ schema, modelName, onCreated, onError }) {
       background: "var(--bg-raised)",
       boxShadow: "var(--shadow-sm)",
       overflow: "hidden",
+      transition: "box-shadow 150ms ease, border-color 150ms ease",
     }}>
       <div style={{
         padding: "14px 20px",
@@ -142,7 +143,7 @@ export default function DynamicForm({ schema, modelName, onCreated, onError }) {
                     gap: 10,
                     padding: "10px 14px",
                     borderRadius: "var(--radius)",
-                    border: "1px solid var(--border)",
+                    border: "1px solid var(--border-hover)",
                     background: "var(--bg-surface)",
                     cursor: "pointer",
                   }}>
@@ -205,6 +206,7 @@ export default function DynamicForm({ schema, modelName, onCreated, onError }) {
                 cursor: submitting ? "not-allowed" : "pointer",
                 opacity: submitting ? 0.6 : 1,
                 transition: "all 150ms ease",
+                boxShadow: "var(--shadow-sm)",
               }}
             >
               {submitting && <Spinner size="sm" />}
@@ -217,13 +219,14 @@ export default function DynamicForm({ schema, modelName, onCreated, onError }) {
               style={{
                 padding: "9px 20px",
                 borderRadius: "var(--radius)",
-                border: "1px solid var(--border)",
+                border: "1px solid var(--border-hover)",
                 background: "transparent",
                 color: "var(--text-secondary)",
                 fontSize: 13,
                 fontWeight: 600,
                 cursor: "pointer",
                 transition: "all 150ms ease",
+                boxShadow: "var(--shadow-sm)",
               }}
             >
               Reset
