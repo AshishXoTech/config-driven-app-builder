@@ -2,7 +2,6 @@ import { Router } from "express";
 import type { AppConfig } from "../core/configLoader";
 import { dynamicRoutes } from "./dynamicRoutes";
 import { CrudService } from "../services/crudService";
-import { authRouter } from "../modules/auth/authRoutes";
 import { authMiddleware } from "../middleware/authMiddleware";
 import { notificationService } from "../services/notificationService";
 import { getJob } from "../services/jobQueue";
@@ -24,7 +23,7 @@ export function buildRoutes(
   });
 
   /**
-   * Debug endpoint (safe)
+   * Debug endpoint
    */
   router.get("/config", (_req, res) => {
     try {
@@ -32,7 +31,7 @@ export function buildRoutes(
         models: config.models,
         port: config.port,
       });
-    } catch (error) {
+    } catch {
       return res.status(500).json({
         error: "Failed to load config",
       });
@@ -40,17 +39,11 @@ export function buildRoutes(
   });
 
   /**
-   * Auth routes (unprotected)
-   */
-  router.use("/auth", authRouter);
-
-  /**
-   * Dynamic routes (protected by JWT)
+   * Dynamic routes (JWT protected)
    */
   try {
     const dynamicRouter = dynamicRoutes(config, crud);
 
-    // Apply auth middleware, then mount dynamic CRUD routes under /api
     router.use("/api", authMiddleware, dynamicRouter);
 
     console.log("✅ Dynamic routes mounted at /api (JWT-protected)");
@@ -59,33 +52,40 @@ export function buildRoutes(
   }
 
   /**
-   * GET /api/me (Force validation check)
+   * Current user
    */
   router.get("/api/me", authMiddleware, (req, res) => {
     res.json({ user: req.user });
   });
 
   /**
-   * GET /api/jobs/:id — poll CSV import job status.
-   * Returns current progress so the frontend can show live updates.
+   * Job status
    */
   router.get("/api/jobs/:id", authMiddleware, (req, res) => {
     const job = getJob(req.params.id);
     if (!job) {
-      return res.status(404).json({ error: true, message: "Job not found" });
+      return res.status(404).json({
+        error: true,
+        message: "Job not found",
+      });
     }
     return res.json(job);
   });
 
   /**
-   * GET /notifications — user-scoped notifications (protected by JWT)
+   * Notifications
    */
   router.get("/notifications", authMiddleware, async (req, res, next) => {
     try {
       const userId = req.userId;
+
       if (!userId) {
-        return res.status(401).json({ error: true, message: "Unauthorized" });
+        return res.status(401).json({
+          error: true,
+          message: "Unauthorized",
+        });
       }
+
       const notifications = await notificationService.getByUserId(userId);
       return res.json(notifications);
     } catch (e) {
@@ -94,7 +94,7 @@ export function buildRoutes(
   });
 
   /**
-   * Fallback route (important for robustness)
+   * 404 fallback
    */
   router.use((_req, res) => {
     return res.status(404).json({
