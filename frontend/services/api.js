@@ -54,7 +54,10 @@ async function request(path, options = {}, _retried = false) {
         const refreshRes = await fetch(`${API_BASE_URL}/auth/refresh`, {
           method: "POST",
           credentials: "include",
-          headers: { "X-Requested-With": "XMLHttpRequest" },
+          headers: {
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest"
+          },
         });
         isRefreshing = false;
         if (refreshRes.ok) {
