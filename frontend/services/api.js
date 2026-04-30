@@ -4,6 +4,10 @@ if (!API_BASE_URL) {
   throw new Error("❌ NEXT_PUBLIC_API_BASE_URL is not set");
 }
 
+// ─────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────
+
 function safeMessage(body) {
   if (typeof body === "string") return body || "Request failed";
   if (body && typeof body === "object") {
@@ -18,23 +22,30 @@ function safeMessage(body) {
 
 let isRefreshing = false;
 
+// ─────────────────────────────────────────────
+// CORE REQUEST FUNCTION (TOKEN-BASED)
+// ─────────────────────────────────────────────
+
 async function request(path, options = {}, _retried = false) {
   const isFormData = options.body instanceof FormData;
+
+  const token = localStorage.getItem("accessToken");
 
   const headers = {
     ...(isFormData ? {} : { "Content-Type": "application/json" }),
     "X-Requested-With": "XMLHttpRequest",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
     ...(options.headers || {}),
   };
 
   let res;
+
   try {
     res = await fetch(`${API_BASE_URL}${path}`, {
       headers,
-      credentials: "include",   // ✅ already correct
       ...options,
     });
-  } catch (err) {
+  } catch {
     throw new Error("Cannot connect to server");
   }
 
@@ -43,8 +54,11 @@ async function request(path, options = {}, _retried = false) {
     ? await res.json()
     : await res.text();
 
+  // ─────────────────────────────────────────────
+  // AUTO REFRESH TOKEN LOGIC
+  // ─────────────────────────────────────────────
+
   if (!res.ok) {
-    // 🔥 FIX: allow refresh for ALL requests except login/signup
     if (
       res.status === 401 &&
       !_retried &&
@@ -55,23 +69,36 @@ async function request(path, options = {}, _retried = false) {
       isRefreshing = true;
 
       try {
+        const refreshToken = localStorage.getItem("refreshToken");
+
         const refreshRes = await fetch(`${API_BASE_URL}/auth/refresh`, {
           method: "POST",
-          credentials: "include",
           headers: {
             "Content-Type": "application/json",
             "X-Requested-With": "XMLHttpRequest",
           },
+          body: JSON.stringify({ refreshToken }),
         });
+
+        const data = await refreshRes.json();
 
         isRefreshing = false;
 
         if (refreshRes.ok) {
+          // ✅ SAVE NEW TOKENS
+          localStorage.setItem("accessToken", data.accessToken);
+          localStorage.setItem("refreshToken", data.refreshToken);
+
+          // 🔁 RETRY ORIGINAL REQUEST
           return request(path, options, true);
         }
       } catch {
         isRefreshing = false;
       }
+
+      // ❌ SESSION DEAD
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
 
       if (typeof window !== "undefined") {
         window.dispatchEvent(new Event("auth:expired"));
@@ -86,21 +113,44 @@ async function request(path, options = {}, _retried = false) {
   return body;
 }
 
-// ─── API FUNCTIONS ─────────────────
+// ─────────────────────────────────────────────
+// AUTH FUNCTIONS
+// ─────────────────────────────────────────────
 
-export function login(email, password) {
-  return request("/auth/login", {
+export async function login(email, password) {
+  const res = await request("/auth/login", {
     method: "POST",
     body: JSON.stringify({ email, password }),
   });
+
+  // ✅ STORE TOKENS
+  localStorage.setItem("accessToken", res.accessToken);
+  localStorage.setItem("refreshToken", res.refreshToken);
+
+  return res;
 }
 
-export function signup(email, password) {
-  return request("/auth/signup", {
+export async function signup(email, password) {
+  const res = await request("/auth/signup", {
     method: "POST",
     body: JSON.stringify({ email, password }),
   });
+
+  // ✅ STORE TOKENS
+  localStorage.setItem("accessToken", res.accessToken);
+  localStorage.setItem("refreshToken", res.refreshToken);
+
+  return res;
 }
+
+export function logout() {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+}
+
+// ─────────────────────────────────────────────
+// API FUNCTIONS
+// ─────────────────────────────────────────────
 
 export function getMe() {
   return request("/api/me");
