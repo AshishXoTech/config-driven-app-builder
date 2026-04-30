@@ -24,8 +24,8 @@ const authSchema = z.object({
  */
 const accessCookieOptions = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "lax" as const,
+  secure: true,
+  sameSite: "none" as const,
   maxAge: 15 * 60 * 1000, // 15 minutes
 };
 
@@ -35,8 +35,8 @@ const accessCookieOptions = {
  */
 const refreshCookieOptions = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "lax" as const,
+  secure: true,
+  sameSite: "none" as const,
   maxAge: 7 * 24 * 60 * 60 * 1000,
   path: "/auth",
 };

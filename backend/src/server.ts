@@ -20,9 +20,10 @@ async function main() {
   const config = loadAppConfig();
   const app = express();
 
-  const allowedOrigin = process.env.FRONTEND_URL || true;
-  // The frontend needs credentials for cookies
-  app.use(cors({ origin: allowedOrigin, credentials: true }));
+  app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true
+  }));
   app.use(express.json());
   app.use(cookieParser());
 
