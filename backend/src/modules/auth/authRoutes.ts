@@ -72,25 +72,15 @@ authRouter.post("/login", authLimiter, async (req, res, next) => {
     const { email, password } = authSchema.parse(req.body);
     const result = await login(email, password);
     
-    res
-      .cookie("token", result.accessToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        path: "/"
-      })
-      .cookie("refreshToken", result.refreshToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        path: "/"
-      })
-      .status(200)
-      .json({
-        success: true,
-        message: "Login successful",
-        userId: result.userId
-      });
+    res.cookie("access_token", result.accessToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
+
+    return res.json({
+      success: true,
+    });
   } catch (err) {
     next(err);
   }

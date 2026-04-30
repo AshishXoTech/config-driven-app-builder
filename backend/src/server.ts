@@ -21,7 +21,7 @@ async function main() {
   const app = express();
 
   app.use(cors({
-    origin: process.env.FRONTEND_URL,
+    origin: "https://config-driven-app-builder.vercel.app",
     credentials: true
   }));
   app.use(express.json());
