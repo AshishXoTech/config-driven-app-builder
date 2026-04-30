@@ -14,7 +14,10 @@ export default function Navbar() {
       await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:4000"}/auth/logout`, {
         method: "POST",
         credentials: "include",
-        headers: { "X-Requested-With": "XMLHttpRequest" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest"
+        },
       });
     } catch (_) {}
     router.push("/login");
