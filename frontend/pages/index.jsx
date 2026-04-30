@@ -408,16 +408,16 @@ export default function Home() {
                   textDecoration: "none",
                   transition: "all 150ms ease",
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "var(--accent)";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow = "var(--shadow-md)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "var(--border)";
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "none";
-                }}>
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = "var(--accent)";
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow = "var(--shadow-md)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "var(--border)";
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}>
                   <div style={{
                     width: 32,
                     height: 32,
@@ -454,6 +454,16 @@ export default function Home() {
         color: "var(--text-muted)",
       }}>
         SchemaForge — Config-driven full-stack CRUD system
+      </footer>
+
+      <footer style={{
+        borderTop: "1px solid var(--border)",
+        padding: "24px",
+        textAlign: "center",
+        fontSize: 12,
+        color: "var(--text-muted)",
+      }}>
+        Made By Ashish Kumar Jha
       </footer>
     </div>
   );
