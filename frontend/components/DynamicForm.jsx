@@ -7,7 +7,8 @@ function fieldKind(field) {
   const t = (field?.type || "text").toLowerCase();
   if (t === "number") return "number";
   if (t === "boolean") return "boolean";
-  return "text";
+  if (t === "string" || t === "text" || t === "date") return "text";
+  return "unknown";
 }
 
 function initialValueFor(field) {
@@ -109,6 +110,29 @@ export default function DynamicForm({ schema, modelName, onCreated, onError }) {
               const kind = fieldKind(f);
               const label = resolveLabel(f.label, f.name);
               const required = !!f.required;
+
+              if (kind === "unknown") {
+                if (process.env.NODE_ENV !== "production") {
+                  console.warn(`⚠️ Unsupported field type: ${f.type}`);
+                }
+                return (
+                  <div key={f.name} style={{
+                    padding: "10px 14px",
+                    background: "rgba(245, 158, 11, 0.1)",
+                    border: "1px dashed rgba(245, 158, 11, 0.5)",
+                    borderRadius: "var(--radius)",
+                    color: "#d97706",
+                    fontSize: 13,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    gridColumn: "1 / -1" // Span full width so it's obvious
+                  }}>
+                    <span>⚠️</span>
+                    <span>Unsupported field type: <strong>{f.type}</strong> ({label})</span>
+                  </div>
+                );
+              }
 
               if (kind === "boolean") {
                 return (

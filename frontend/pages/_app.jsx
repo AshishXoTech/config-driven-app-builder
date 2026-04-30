@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from "../contexts/AuthContext";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
+import SafeModeBanner from "../components/SafeModeBanner";
 
 import { getMe } from "../services/api";
 
@@ -73,6 +74,7 @@ export default function App({ Component, pageProps }) {
     <AuthProvider>
       <LanguageProvider>
         <ProtectedRoute>
+          <SafeModeBanner />
           <Component {...pageProps} />
         </ProtectedRoute>
       </LanguageProvider>

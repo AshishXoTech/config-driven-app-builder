@@ -18,12 +18,18 @@ export default function DynamicTable({ schema, modelName, refreshKey = 0, onErro
   const { resolveLabel } = useLanguage();
 
   const colInfo = useMemo(() => {
-    const info = [{ name: idField, label: "ID" }];
+    const info = [{ name: idField, label: "ID", type: "string" }];
     for (const f of fields) {
-      info.push({ name: f.name, label: resolveLabel(f.label, f.name) });
+      info.push({ name: f.name, label: resolveLabel(f.label, f.name), type: f.type });
     }
     return info;
   }, [idField, fields, resolveLabel]);
+
+  function getFieldKind(type) {
+    const t = (type || "text").toLowerCase();
+    if (["number", "boolean", "string", "date", "text"].includes(t)) return t;
+    return "unknown";
+  }
 
   const { data: rows, error: swrError, isLoading: loading, mutate } = useSWR(
     modelName ? `/api/${modelName}` : null,
@@ -172,7 +178,11 @@ export default function DynamicTable({ schema, modelName, refreshKey = 0, onErro
                         color: "var(--text)",
                         verticalAlign: "top",
                       }}>
-                        {safeString(r?.[c.name])}
+                        {getFieldKind(c.type) === "unknown" ? (
+                          <span style={{ color: "#d97706", fontSize: 11, fontWeight: 500, background: "rgba(245, 158, 11, 0.1)", padding: "2px 6px", borderRadius: 4 }}>
+                            ⚠️ Unsupported
+                          </span>
+                        ) : safeString(r?.[c.name])}
                       </td>
                     ))}
                     <td style={{ padding: "10px 12px" }}>
