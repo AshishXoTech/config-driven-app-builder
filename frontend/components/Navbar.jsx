@@ -43,20 +43,7 @@ export default function Navbar() {
         gap: "10px",
         textDecoration: "none",
       }}>
-        <div style={{
-          width: 28,
-          height: 28,
-          borderRadius: 8,
-          background: "linear-gradient(135deg, #8b7af5 0%, #6c5ce7 100%)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: 14,
-          fontWeight: 700,
-          color: "#fff",
-        }}>
-          S
-        </div>
+        <img src="/logo.png" alt="SchemaForge Logo" style={{ width: 28, height: 28, borderRadius: 8, objectFit: "cover" }} />
         <span style={{
           fontSize: 15,
           fontWeight: 700,

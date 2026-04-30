@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import Head from "next/head";
 import { LanguageProvider } from "../contexts/LanguageContext";
 import { AuthProvider, useAuth } from "../contexts/AuthContext";
 import { useRouter } from "next/router";
@@ -71,13 +72,18 @@ function ProtectedRoute({ children }) {
 
 export default function App({ Component, pageProps }) {
   return (
-    <AuthProvider>
-      <LanguageProvider>
-        <ProtectedRoute>
-          <SafeModeBanner />
-          <Component {...pageProps} />
-        </ProtectedRoute>
-      </LanguageProvider>
-    </AuthProvider>
+    <>
+      <Head>
+        <link rel="icon" href="/logo.png" />
+      </Head>
+      <AuthProvider>
+        <LanguageProvider>
+          <ProtectedRoute>
+            <SafeModeBanner />
+            <Component {...pageProps} />
+          </ProtectedRoute>
+        </LanguageProvider>
+      </AuthProvider>
+    </>
   );
 }
