@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+// Extend Express Request
 declare global {
   namespace Express {
     interface Request {
@@ -18,24 +19,18 @@ export function authMiddleware(
   res: Response,
   next: NextFunction
 ): void {
-  // ✅ FIX: read correct cookie name
-  let token = req.cookies?.access_token;
+  // ✅ ONLY read from Authorization header
+  const header = req.headers.authorization;
 
-  // fallback to Authorization header
-  if (!token) {
-    const header = req.headers.authorization;
-    if (header && header.startsWith("Bearer ")) {
-      token = header.split(" ")[1];
-    }
-  }
-
-  if (!token) {
+  if (!header || !header.startsWith("Bearer ")) {
     res.status(401).json({
       error: true,
-      message: "No token found",
+      message: "Unauthorized (no token)",
     });
     return;
   }
+
+  const token = header.split(" ")[1];
 
   try {
     const payload = jwt.verify(token, JWT_SECRET) as { userId: number };

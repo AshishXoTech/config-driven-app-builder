@@ -30,30 +30,13 @@ const authSchema = z.object({
 });
 
 // ─────────────────────────────────────────────
-// COOKIE CONFIG (FIXED)
+// HELPER: SEND TOKENS (NO COOKIES)
 // ─────────────────────────────────────────────
-const cookieOptions = {
-  httpOnly: true,
-  secure: true,
-  sameSite: "none" as const,
-  path: "/",
-  domain: ".onrender.com",   // ✅ ADD THIS LINE
-};
-
-// ─────────────────────────────────────────────
-// SET TOKENS HELPER (FIXED)
-// ─────────────────────────────────────────────
-function setTokens(res: any, result: any) {
-  console.log("SETTING COOKIE 🔥");
-
-  res.cookie("access_token", result.accessToken, cookieOptions);
-  res.cookie("refresh_token", result.refreshToken, cookieOptions);
-
-  // Prevent caching issues (important on Vercel)
-  res.setHeader("Cache-Control", "no-store");
-
+function sendTokens(res: any, result: any) {
   return res.status(200).json({
     success: true,
+    accessToken: result.accessToken,
+    refreshToken: result.refreshToken,
     userId: result.userId,
   });
 }
@@ -65,23 +48,22 @@ authRouter.post("/signup", authLimiter, async (req, res, next) => {
   try {
     const { email, password } = authSchema.parse(req.body);
     const result = await signup(email, password);
-    return setTokens(res, result);
+
+    return sendTokens(res, result);
   } catch (err) {
     next(err);
   }
 });
 
 // ─────────────────────────────────────────────
-// LOGIN (FIXED)
+// LOGIN
 // ─────────────────────────────────────────────
 authRouter.post("/login", authLimiter, async (req, res, next) => {
   try {
-    console.log("LOGIN ROUTE HIT ✅");
-
     const { email, password } = authSchema.parse(req.body);
     const result = await login(email, password);
 
-    return setTokens(res, result);
+    return sendTokens(res, result);
   } catch (err) {
     next(err);
   }
@@ -94,6 +76,7 @@ authRouter.post("/otp/send", authLimiter, async (req, res, next) => {
   try {
     const email = z.string().email().parse(req.body.email);
     await sendOtp(email);
+
     return res.json({ success: true });
   } catch (err) {
     next(err);
@@ -106,28 +89,31 @@ authRouter.post("/otp/verify", authLimiter, async (req, res, next) => {
     const code = z.string().length(6).parse(req.body.code);
 
     const result = await loginWithOtp(email, code);
-    return setTokens(res, result);
+
+    return sendTokens(res, result);
   } catch (err) {
     next(err);
   }
 });
 
 // ─────────────────────────────────────────────
-// REFRESH
+// REFRESH (TOKEN-BASED)
 // ─────────────────────────────────────────────
 authRouter.post("/refresh", async (req, res, next) => {
   try {
-    const oldToken = req.cookies?.refresh_token;
+    const refreshToken = req.body.refreshToken;
 
-    if (!oldToken) {
-      return res.status(401).json({ error: true, message: "No refresh token" });
+    if (!refreshToken) {
+      return res.status(401).json({
+        error: true,
+        message: "No refresh token provided",
+      });
     }
 
-    const result = await refreshSession(oldToken);
-    return setTokens(res, result);
+    const result = await refreshSession(refreshToken);
+
+    return sendTokens(res, result);
   } catch (err) {
-    res.clearCookie("access_token", cookieOptions);
-    res.clearCookie("refresh_token", cookieOptions);
     next(err);
   }
 });
@@ -136,16 +122,17 @@ authRouter.post("/refresh", async (req, res, next) => {
 // LOGOUT
 // ─────────────────────────────────────────────
 authRouter.post("/logout", async (req, res) => {
-  const refreshToken = req.cookies?.refresh_token;
+  try {
+    const refreshToken = req.body.refreshToken;
 
-  if (refreshToken) {
-    await revokeRefreshToken(refreshToken);
+    if (refreshToken) {
+      await revokeRefreshToken(refreshToken);
+    }
+
+    return res.json({ success: true });
+  } catch {
+    return res.json({ success: true });
   }
-
-  res.clearCookie("access_token", cookieOptions);
-  res.clearCookie("refresh_token", cookieOptions);
-
-  return res.json({ success: true });
 });
 
 export { authRouter };
